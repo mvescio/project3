@@ -16,20 +16,24 @@ import org.junit.jupiter.api.Test;
 
 public class DataReaderTest {
   /**
-   * This method tests that the destinations name is correctly added to the 'name'
-   * characteristic of each destination from the csv file. The method throws an 
-   * exception if the csv file is not found.
+   * This method tests that the list of vertexes is correctly read from the file 
+   * and put into the list of destinations returned. The vertexes have a cost of 
+   * 0 and there are no corresponding destinations for these vertexes yet.
    * @return true if the test passes, and false otherwise
    * @throws DataFormatException 
    * @throws IOException 
    * @throws FileNotFoundException 
    */
   @Test
-  void testNameMethod() throws FileNotFoundException, IOException, DataFormatException {
+  void testVertexAddition() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
     List<Destination> list = test.readDataSet();
-    if (!list.get(0).getName().equals("Union South")) {
-      fail(list.get(0).getName());
+    if (!list.get(0).getName().equals("Dejope") && !list.get(1).getName().equals("Waters")) {
+      fail(list.get(0).getName() + " " + list.get(1).getName());
+    }
+    
+    if (!list.get(8).getName().equals("Witte")) {
+      fail(list.get(8).getName());
     }
   }
   
@@ -43,49 +47,50 @@ public class DataReaderTest {
    * @throws FileNotFoundException 
    */
   @Test
-  void testCostMethod() throws FileNotFoundException, IOException, DataFormatException {
+  void testDestinations() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
     List<Destination> list = test.readDataSet();
-    if (list.get(0).getCost() != 4) {
-      fail(list.get(0).getCost().toString());
+    if (!list.get(9).getDest().equals("Hummanities") && !list.get(10).getDest().equals("Business")) {
+      fail(list.get(9).getCost() + " " + list.get(10).getCost());
     }
+
   }
   
   /**
-   * This method tests that the destinations time is correctly added to the 'time'
-   * characteristic of each destination from the csv file. The method throws an 
-   * exception if the csv file is not found.
+   * This method tests that the correct cost between the destinations is correcetly
+   * transferred from the csv file to the list of destinations.
    * @return true if the test passes, and false otherwise
    * @throws DataFormatException 
    * @throws IOException 
    * @throws FileNotFoundException 
    */
   @Test
-  void testTimeMethod() throws FileNotFoundException, IOException, DataFormatException {
+  void testCost() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
     List<Destination> list = test.readDataSet();
-    if (list.get(0).getTime() != 15) {
-      fail(list.get(0).getTime().toString());
+    if (list.get(9).getCost() !=  3 && list.get(10).getCost() != 3 && list.get(11).getCost() == 9) {
+      fail(list.get(9).getCost() + " " + list.get(10).getCost());
     }
   }
   
   /**
-   * This method tests the compare to method. The result should be a postive 1
-   * because the destination cost of 'this' destination is greater than the cost
-   * of the other destination. The cost of the first destination is 4, while the 
-   * cost of the second destination is 2. The method throws an exception if the 
-   * csv file is not found.
+   * This method tests that the items that are farther down the list also got added
+   * to the list of destinations and have the correct names with destinations.
    * @return true if the test passes, and false otherwise
    * @throws DataFormatException 
    * @throws IOException 
    * @throws FileNotFoundException 
    */
   @Test
-  void testCompareToMethod() throws FileNotFoundException, IOException, DataFormatException {
+  void testAllElements() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
     List<Destination> list = test.readDataSet();
-    if (list.get(0).compareTo(list.get(1)) != 1) {
-      fail(list.get(0).getTime().toString());
+    if (!list.get(20).getName().equals("Business") || !list.get(20).getDest().equals("Hummanities")) {
+      fail(list.get(20).getDest());
     }
-  }
+    
+    if (!list.get(21).getName().equals("Business") || !list.get(21).getDest().equals("Van Vleck Hall")) {
+      fail(list.get(21).getDest());
+    }
+  } 
 }

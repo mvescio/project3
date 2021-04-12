@@ -1,30 +1,31 @@
-﻿List of Destinations
-"""Buffalo wild wings,3,E.Campus mall and johnson"
-"campus and randell ,1,N. orchard and campus,"
-"Computer science building,2,randell and dayton,2,N. charter and W. Dayton,3,N. orchard and spring"
-"E.Campus mall and johnson,1,Gordens,3,Buffalo wild wings,5,Witte"
-"Granger Hall,1,Sellery  ,2,N.brooks and W. Dayton"
-"Kohl center,2,Witte,2,Nicholas rec center "
-"Lucky's,1,regent and radell ,2,N. orchard and Regent "
-"N. charter and campus  ,2,N.Mills and campus,2,N. charter and W. Dayton"
-"N. charter and Spring,2,N. orchard and spring ,2,N.mills and Spring,3,the red zone maddison"
-"N. charter and W. Dayton,2,N. charter and campus  ,2,N.mills and dayton "
-"N. mills and Regent,3,the red zone maddison ,5,N.mills and Spring,3,Qudoba"
-"N. orchard and campus,1,union south ,2,N. charter and campus  ,2,Computer science building"
-"N. orchard and Regent,2,Lucky's,3,N. charter and Regent"
-"N. orchard and spring ,2,Spring Street and randell,5,N. orchard and Regent,2,N. charter and Spring"
-"N.brooks and W. Dayton,4,Ogg ,2,N.mills and W.Dayton"
-"N.mills and campus ,3,N.Mills and Dayton,2,Granger Hall"
-"N.mills and Spring,2,N. charter and Spring,5,N. mills and Regent"
-"N.mills and W.Dayton,3,N.mills and Spring,2,N. charter and W. Dayton"
-"Nicholas rec center,1,Ogg ,1,Gordens,2,Kohl center"
-"Ogg ,3,Sellery  ,1,Nicholas rec center,4,N.brooks and W. Dayton"
-"Qudoba,12,Ogg ,3,N. mills and Regent"
-"randell and dayton,4,Spring Street and randell"
-"regent and radell ,1,Lucky's"
-"Sellery,2,E.Campus mall and johnson"
-"Spring Street and randell,5,regent and radell ,2,N. orchard and spring"
-"the red zone maddison ,3,N. charter and Spring,3,N. mills and Regent,2,N. orchard and Regent"
-"union south ,1,randell and dayton,1,campus and randell"
-"Witte,4,Fresh market,1,Gordens,2,Kohl center"
-"Gordens,1,Witte,1,Nicholas rec center,1,E.Campus mall and johnson"
+﻿Dejope,Waters,Memorial Union,Van Vleck Hall,Hummanities,Union South,Business School,Camp Randall,Witte
+Witte,Hummanities,3,,,,,,
+Witte,Business,3,,,,,,
+Witte,Union South,9,,,,,,
+Camp Randall,Union South,1,,,,,,
+Camp Randall,Dejope,7,,,,,,
+Union South,Camp Randall,1,,,,,,
+Union South,Witte,9,,,,,,
+Union South,Business,5,,,,,,
+Union South,Van Vleck Hall,3,,,,,,
+Union South,Dejope,7,,,,,,
+Business,Witte,3,,,,,,
+Business,Hummanities,1,,,,,,
+Business,Van Vleck Hall,4,,,,,,
+Business,Union South,5,,,,,,
+Hummanities,Witte,3,,,,,,
+Hummanities,Business,1,,,,,,
+Hummanities,Van Vleck Hall,4,,,,,,
+Hummanities,Memorial Union,2,,,,,,
+Van Vleck Hall,Hummanities,4,,,,,,
+Van Vleck Hall,Business,4,,,,,,
+Van Vleck Hall,Union South,3,,,,,,
+Van Vleck Hall,Waters,2,,,,,,
+Memorial Union,Hummanities,2,,,,,,
+Memorial Union,Waters,7,,,,,,
+Waters,Memorial Union,7,,,,,,
+Waters,Van Vleck Hall,2,,,,,,
+Waters,Dejope,4,,,,,,
+Dejope,Waters,4,,,,,,
+Dejope,Union South,7,,,,,,
+Dejope,Camp Randall,7,,,,,,

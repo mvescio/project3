@@ -17,17 +17,17 @@
  */
 public class Destination implements DestinationInterface{
   private String name;
+  private String dest;
   private Integer cost;
-  private Integer time;
   
   /**
    * Constructor which creates the Destination object and stores the Destination's 
    * name, cost, and time
    */
-  public Destination(String name, Integer cost, Integer time) {
+  public Destination(String name, String dest, Integer cost) {
       this.name = name;
+      this.dest = dest;
       this.cost = cost;
-      this.time = time;
   }  
   
   /**
@@ -47,11 +47,11 @@ public class Destination implements DestinationInterface{
   }
   
   /**
-   * Returns this Destinations time.
+   * Returns this Destinations cost.
    */
   @Override
-  public Integer getTime() {
-    return this.time;
+  public String getDest() {
+    return this.dest;
   }
 
   /**
