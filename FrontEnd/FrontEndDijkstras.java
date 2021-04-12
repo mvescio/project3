@@ -15,6 +15,8 @@ public class FrontEndDijkstras {
 	  public static void main(String[] args)
 	      throws FileNotFoundException, IOException, DataFormatException {
 		  
+		
+		/*BackendInterface graph = new BackendInterface();*/
 	    CS400Graph<String> graph = new CS400Graph<String>();
 	    graph.insertVertex("Dejope Hall");
 	    graph.insertVertex("Camp Randall");
@@ -61,34 +63,32 @@ public class FrontEndDijkstras {
 	    graph.insertEdge("Witte Hall", "Union South", 7);
 	    graph.insertEdge("Witte Hall", "Camp Randall", 8);
 	    
-	    String[] options = new String[graph.vertices.size()];
-	    options[0] = "Camp Randall";
-	    options[1] = "Dejope Hall";
-	    options[2] = "Union South";
-	    options[3] = "Waters Hall";
-	    options[4] = "Van Vleck Hall";
-	    options[5] = "Memorial Union";
-	    options[6] = "Humanities";
-	    options[7] = "Witte Hall";
+	    String[] options = new String[graph.vertices.size() + 1];
+	    options[0] = null;
+	    options[1] = "Camp Randall";
+	    options[2] = "Dejope Hall";
+	    options[3] = "Union South";
+	    options[4] = "Waters Hall";
+	    options[5] = "Van Vleck Hall";
+	    options[6] = "Memorial Union";
+	    options[7] = "Humanities";
+	    options[8] = "Witte Hall";
 
 	    // Welcome message to the user
 	    System.out.println("Welcome to the UW Campus Map!");
 	    System.out.println();
 	    
+	    //Begins with choosing start and finish locations
 	    chooseBoth(graph, options);
-
-	    // Sends the user to menuSelection which enables various functions of the Pokedex
-	    //menuSelection(graph);
 
 	  }
 	  
-	  public static void chooseBoth(CS400Graph<String> graph, String[] options)
-		      throws FileNotFoundException, IOException, DataFormatException {
+	  public static void chooseBoth(CS400Graph<String> graph, String[] options) {
 		  
 		  System.out.println("Please choose one of the following as your starting point: ");
 		    
 		    
-		    for (int i = 0; i < options.length; i++) {
+		    for (int i = 1; i < options.length; i++) {
 		    	System.out.println("[" + i + "]: " + options[i]);
 		    }
 		    
@@ -96,7 +96,7 @@ public class FrontEndDijkstras {
 		    int choiceOfStart = sc.nextInt();
 		    String start = "";
 		    
-		    while (choiceOfStart < 0 || choiceOfStart > 7) {
+		    while (choiceOfStart < 1 || choiceOfStart > 8) {
 		    	System.out.println("Please select a valid starting location.");
 		    	choiceOfStart = sc.nextInt();
 		    }
@@ -109,14 +109,14 @@ public class FrontEndDijkstras {
 		    
 		    System.out.println("Please choose one of the following as your ending point: ");
 		    
-		    for (int i = 0; i < options.length; i++) {
+		    for (int i = 1; i < options.length; i++) {
 		    	System.out.println("[" + i + "]: " + options[i]);
 		    }
 		    
 		    int choiceOfEnd = sc.nextInt();
 		    String end = "";
 		    
-		    while (choiceOfEnd < 0 || choiceOfEnd > 7) {
+		    while (choiceOfEnd < 1 || choiceOfEnd > 8) {
 		    	System.out.println("Please select a valid ending location.");
 		    	choiceOfEnd = sc.nextInt();
 		    }
@@ -129,7 +129,9 @@ public class FrontEndDijkstras {
 		    
 		    System.out.println("Shortest path between " + start + " and " + end + ": ");
 		    System.out.println(graph.shortestPath(start, end));
+		    //System.out.println(graph.printRoute());
 		    System.out.println("Total distance: " + graph.getPathCost(start, end) + " yards.");
+		    //System.out.println("Nearby buildings: " + graph.printAdjacentLocations(start, end));
 		    
 		    System.out.println();
 		    System.out.println("Please select an option: ");
@@ -172,18 +174,18 @@ public class FrontEndDijkstras {
 		    sc.close();
 	  }
 	  
-	  public static void changeStart(CS400Graph<String> graph, String end, String[] options) 
-			  throws FileNotFoundException, IOException, DataFormatException {
+	  public static void changeStart(CS400Graph<String> graph, String end, String[] options) {
+		  
 		  Scanner sc = new Scanner(System.in);
 		  System.out.println("Please choose a new starting location.");
-		  for (int i = 0; i < options.length; i++) {
+		  for (int i = 1; i < options.length; i++) {
 		    	System.out.println("[" + i + "]: " + options[i]);
 		    }
 		    
 		  int choiceOfStart = sc.nextInt();
 		    String start = "";
 		    
-		    while (choiceOfStart < 0 || choiceOfStart > 7) {
+		    while (choiceOfStart < 1 || choiceOfStart > 8) {
 		    	System.out.println("Please select a valid starting location.");
 		    	choiceOfStart = sc.nextInt();
 		    }
@@ -195,7 +197,9 @@ public class FrontEndDijkstras {
 		  
 		  System.out.println("Shortest path between " + start + " and " + end + ": ");
 		    System.out.println(graph.shortestPath(start, end));
+		  //System.out.println(graph.printRoute());
 		    System.out.println("Total distance: " + graph.getPathCost(start, end) + " yards.");
+		    //System.out.println("Nearby buildings: " + graph.printAdjacentLocations(start, end));
 		    
 		    System.out.println();
 		    System.out.println("Please select an option: ");
@@ -238,19 +242,18 @@ public class FrontEndDijkstras {
 		  sc.close();
 	  }
 	  
-	  public static void changeEnd(CS400Graph<String> graph, String start, String[] options) 
-			  throws FileNotFoundException, IOException, DataFormatException {
+	  public static void changeEnd(CS400Graph<String> graph, String start, String[] options) {
 		  
 		  Scanner sc = new Scanner(System.in);
 		  System.out.println("Please choose a new ending location.");
-		  for (int i = 0; i < options.length; i++) {
+		  for (int i = 1; i < options.length; i++) {
 		    	System.out.println("[" + i + "]: " + options[i]);
 		    }
 		    
 		  int choiceOfEnd = sc.nextInt();
 		    String end = "";
 		    
-		    while (choiceOfEnd < 0 || choiceOfEnd > 7) {
+		    while (choiceOfEnd < 1 || choiceOfEnd > 8) {
 		    	System.out.println("Please select a valid ending location.");
 		    	choiceOfEnd = sc.nextInt();
 		    }
@@ -262,7 +265,10 @@ public class FrontEndDijkstras {
 		  
 		  System.out.println("Shortest path between " + start + " and " + end + ": ");
 		    System.out.println(graph.shortestPath(start, end));
+		    //System.out.println(graph.printRoute());
 		    System.out.println("Total distance: " + graph.getPathCost(start, end) + " yards.");
+		    //System.out.println("Nearby buildings: " + graph.printAdjacentLocations(start, end));
+		    
 		    
 		    System.out.println();
 		    System.out.println("Please select an option: ");
@@ -303,6 +309,5 @@ public class FrontEndDijkstras {
 		    }
 		    
 		    sc.close();
-		  
 	  }
 }
