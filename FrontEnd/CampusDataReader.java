@@ -23,7 +23,7 @@ import java.util.zip.DataFormatException;
 public class CampusDataReader implements CampusMapDataReaderInterface {
 	
 	List<String> vertices = new ArrayList<String>();
-	Object[][] edges = new Object[30][3];
+	Object[][] edges = new Object[31][3];
 	
 
   @Override
@@ -90,7 +90,6 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
     // the edges
     // loop where it runs until there isn't a next line
     int k = 1;
-    csvReader.readLine();
     while ((row = csvReader.readLine()) != null) {
 
       // creates an Object array to hold the Destinations' data before casting them to
@@ -110,9 +109,9 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
         
         
       }
-        edges[k][0] = data[0];
-        edges[k][1] = data[1];
-        edges[k][2] = data[2];
+        edges[k-1][0] = data[0];
+        edges[k-1][1] = data[1];
+        edges[k-1][2] = data[2];
         k += 1;
       // converts the info from each Destination and adds to the Destination object
       
