@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
@@ -19,27 +18,69 @@ public class FrontEndDijkstras {
 		
 		/*BackendInterface graph = new BackendInterface();*/
 	    CS400Graph<String> graph = new CS400Graph<String>();
-	    CampusDataReader reader = new CampusDataReader();
-	    List<Destination> data = reader.readDataSet();
+	    /*graph.insertVertex("Dejope Hall");
+	    graph.insertVertex("Camp Randall");
+	    graph.insertVertex("Union South");
+	    graph.insertVertex("Memorial Union");
+	    graph.insertVertex("Van Vleck Hall");
+	    graph.insertVertex("Humanities");
+	    graph.insertVertex("Witte Hall");
+	    graph.insertVertex("Waters Hall");
 	    
-	    for (int i=10; i<data.size(); i++) {
-	      if (!graph.containsVertex(data.get(i).getName()) && !graph.containsVertex(data.get(i).getDest())) {
-	        graph.insertVertex(data.get(i).getName());
-	        graph.insertVertex(data.get(i).getDest());
-	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
-	      } else if (!graph.containsVertex(data.get(i).getName()) && graph.containsVertex(data.get(i).getDest())) {
-	        graph.insertVertex(data.get(i).getName());
-	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
-	      } else if (graph.containsVertex(data.get(i).getName()) && !graph.containsVertex(data.get(i).getDest())) {
-	        graph.insertVertex(data.get(i).getDest());
-            graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
-	      } else {
-	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
-	      }
+	    
+	    
+	    graph.insertEdge("Dejope Hall", "Camp Randall", 8);
+	    graph.insertEdge("Dejope Hall", "Union South", 7);    
+	    graph.insertEdge("Dejope Hall", "Waters Hall", 3);
+	    
+	    graph.insertEdge("Camp Randall", "Union South", 2);
+	    graph.insertEdge("Camp Randall", "Dejope Hall", 8);
+	    graph.insertEdge("Camp Randall", "Witte Hall", 8);
+	    
+	    graph.insertEdge("Union South", "Dejope Hall", 7);
+	    graph.insertEdge("Union South", "Van Vleck Hall", 4);
+	    graph.insertEdge("Union South", "Witte Hall", 7);
+	    graph.insertEdge("Union South", "Camp Randall", 2);
+	    
+	    graph.insertEdge("Waters Hall", "Dejope Hall", 8);
+	    graph.insertEdge("Waters Hall", "Memorial Union", 8);
+	    graph.insertEdge("Waters Hall", "Van Vleck Hall", 2);
+	    
+	    graph.insertEdge("Van Vleck Hall", "Waters Hall", 2);
+	    graph.insertEdge("Van Vleck Hall", "Memorial Union", 7);
+	    graph.insertEdge("Van Vleck Hall", "Humanities", 6);
+	    graph.insertEdge("Van Vleck Hall", "Union South", 4);
+	    
+	    graph.insertEdge("Memorial Union", "Waters Hall", 8);
+	    graph.insertEdge("Memorial Union", "Humanities", 2);
+	    graph.insertEdge("Memorial Union", "Van Vleck Hall", 7);
+	    
+	    graph.insertEdge("Humanities", "Van Vleck Hall", 6);
+	    graph.insertEdge("Humanities", "Witte Hall", 4);
+	    graph.insertEdge("Humanities", "Memorial Union", 2);
+	    
+	    graph.insertEdge("Witte Hall", "Humanities", 4);
+	    graph.insertEdge("Witte Hall", "Union South", 7);
+	    graph.insertEdge("Witte Hall", "Camp Randall", 8);*/
+	    
+	    CampusDataReader reader = new CampusDataReader();
+	    reader.readDataSet();
+	    for (int i = 0; i < reader.vertices.size(); i++) {
+	    	graph.insertVertex(reader.vertices.get(i));
+	    }
+	    for (int i = 1; i < reader.edges.length; i++) {
+	    	Integer cost = Integer.valueOf((String) reader.edges[i][2]) ;
+	    	String startV = (String) reader.edges[i][0];
+	    	String endV = (String) reader.edges[i][1];
+	    	graph.insertEdge(startV, endV, cost);
 	    }
 	    
-	    String[] options = new String[graph.vertices.size() + 1];
-	    options[0] = null;
+	    String[] options = new String[reader.vertices.size()];
+	    for (int i = 0; i < reader.vertices.size(); i++) {
+	    	options[i] = reader.vertices.get(i);
+	    }
+	    //String[] options = new String[graph.vertices.size() + 1];
+	    /*options[0] = null;
 	    options[1] = "Camp Randall";
 	    options[2] = "Dejope Hall";
 	    options[3] = "Union South";
@@ -47,7 +88,7 @@ public class FrontEndDijkstras {
 	    options[5] = "Van Vleck Hall";
 	    options[6] = "Memorial Union";
 	    options[7] = "Humanities";
-	    options[8] = "Witte Hall";
+	    options[8] = "Witte Hall";*/
 
 	    // Welcome message to the user
 	    System.out.println("Welcome to the UW Campus Map!");
