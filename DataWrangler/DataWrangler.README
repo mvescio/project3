@@ -7,10 +7,9 @@ Team: Blue
 Files Written by Me:
 --------------------
 CampusMapDataReaderInterface.java
-DestinationInterface.java
 CampusDataReader.java
-Destination.java
 DataReaderTest.java
+
 Additional Contributions:
 -------------------------
 <List any additional contributions that you have made toward your team's
