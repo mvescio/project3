@@ -459,4 +459,13 @@ public class CS400Graph<T> implements GraphADT<T> {
       return wistful.distance;
     }
   }
+  
+  public void adjacentLocations(T start, T end) {
+	  Path w = dijkstrasShortestPath(start, end);
+	  System.out.print("Buildings adjacent to your destination are: ");
+	  for (int i = 0; i < w.end.edgesLeaving.size() - 1; i++) {
+		  System.out.print(w.end.edgesLeaving.get(i).target.data + ", ");
+	  }
+	  System.out.println(w.end.edgesLeaving.get(w.end.edgesLeaving.size() - 1).target.data + ".");
+  }
 }
