@@ -17,23 +17,24 @@ import org.junit.jupiter.api.Test;
 public class DataReaderTest {
   /**
    * This method tests that the list of vertexes is correctly read from the file 
-   * and put into the list of destinations returned. The vertexes have a cost of 
-   * 0 and there are no corresponding destinations for these vertexes yet.
+   * and put into the list of strings returned. The vertexes do not have a cost
+   * and there are no corresponding destinations for these vertexes yet.
    * @return true if the test passes, and false otherwise
    * @throws DataFormatException 
    * @throws IOException 
    * @throws FileNotFoundException 
    */
   @Test
-  void testVertexAddition() throws FileNotFoundException, IOException, DataFormatException {
+  void testVertex() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
-    List<Destination> list = test.readDataSet();
-    if (!list.get(0).getName().equals("Dejope") && !list.get(1).getName().equals("Waters")) {
-      fail(list.get(0).getName() + " " + list.get(1).getName());
+    test.readDataSet();
+    List<String> list = test.vertices;
+    if (!list.get(0).toString().equals("Dejope") && !list.get(1).toString().equals("Waters")) {
+      fail(list.get(0).toString() + " " + list.get(1).toString());
     }
     
-    if (!list.get(8).getName().equals("Witte")) {
-      fail(list.get(8).getName());
+    if (!list.get(8).toString().equals("Witte")) {
+      fail(list.get(8).toString());
     }
   }
   
@@ -47,17 +48,17 @@ public class DataReaderTest {
    * @throws FileNotFoundException 
    */
   @Test
-  void testDestinations() throws FileNotFoundException, IOException, DataFormatException {
+  void testEdges() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
-    List<Destination> list = test.readDataSet();
-    if (!list.get(9).getDest().equals("Hummanities") && !list.get(10).getDest().equals("Business")) {
-      fail(list.get(9).getCost() + " " + list.get(10).getCost());
+    test.readDataSet();
+    Object[][] list = test.edges;
+    if (!list[1][1].equals("Business School") && !list[2][1].equals("Union South")) {
+      fail(list[1][1].toString() + " " + list[2][1].toString());
     }
-
   }
   
   /**
-   * This method tests that the correct cost between the destinations is correcetly
+   * This method tests that the correct cost between the destinations is correctly
    * transferred from the csv file to the list of destinations.
    * @return true if the test passes, and false otherwise
    * @throws DataFormatException 
@@ -67,30 +68,10 @@ public class DataReaderTest {
   @Test
   void testCost() throws FileNotFoundException, IOException, DataFormatException {
     CampusDataReader test = new CampusDataReader();
-    List<Destination> list = test.readDataSet();
-    if (list.get(9).getCost() !=  3 && list.get(10).getCost() != 3 && list.get(11).getCost() == 9) {
-      fail(list.get(9).getCost() + " " + list.get(10).getCost());
+    test.readDataSet();
+    Object[][] list = test.edges;
+    if (!list[1][2].toString().equals("3") && !list[2][2].toString().equals("5")) {
+      fail(list[1][2].toString() + " " + list[2][2].toString());
     }
   }
-  
-  /**
-   * This method tests that the items that are farther down the list also got added
-   * to the list of destinations and have the correct names with destinations.
-   * @return true if the test passes, and false otherwise
-   * @throws DataFormatException 
-   * @throws IOException 
-   * @throws FileNotFoundException 
-   */
-  @Test
-  void testAllElements() throws FileNotFoundException, IOException, DataFormatException {
-    CampusDataReader test = new CampusDataReader();
-    List<Destination> list = test.readDataSet();
-    if (!list.get(20).getName().equals("Business") || !list.get(20).getDest().equals("Hummanities")) {
-      fail(list.get(20).getDest());
-    }
-    
-    if (!list.get(21).getName().equals("Business") || !list.get(21).getDest().equals("Van Vleck Hall")) {
-      fail(list.get(21).getDest());
-    }
-  } 
 }

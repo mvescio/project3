@@ -1,4 +1,3 @@
-
 // --== CS400 File Header Information ==--
 // Name: Sydney Benck
 // Email: sbenck@wisc.edu
@@ -17,9 +16,13 @@ import java.util.List;
 import java.util.zip.DataFormatException;
 
 public class CampusDataReader implements CampusMapDataReaderInterface {
+	
+	List<String> vertices = new ArrayList<String>();
+	Object[][] edges = new Object[30][3];
+	
 
   @Override
-  public List<Destination> readDataSet()
+  public void readDataSet()
       throws FileNotFoundException, IOException, DataFormatException {
     /**
      * Reads in a set of Destinations from a .csv file and creates a Destination object based off of
@@ -33,7 +36,6 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
      * 
      * @throws DataFormatException   when the file does not have the correct format.
      */
-    List<Destination> destinationList = new ArrayList<Destination>();
     File f = new File("Madisonmap.csv");
 
     if (!f.exists()) {
@@ -56,7 +58,7 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
 
     // Reads the first line of the file which contains all of the vertexes within this map
     // This graph contains 8 vertexes
-    Object[] vertexes = new Object[9];
+    String[] vertexes = new String[9];
     row = csvReader.readLine();
     int start = 0;
     int end = row.indexOf(",");
@@ -73,18 +75,18 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
     
     // Add the vertexes to the destination list returned
     for (int i = 0; i < vertexes.length; i++) {
-      Destination v = new Destination(vertexes[i].toString(), null, 0);
-      destinationList.add(v);      
+      vertices.add(vertexes[i]);
     }
     
     // Now the reader reads in all of the edges, their costs, and the destinations on each end of
     // the edges
     // loop where it runs until there isn't a next line
+    int k = 1;
+    csvReader.readLine();
     while ((row = csvReader.readLine()) != null) {
-
       // creates an Object array to hold the Destinations' data before casting them to
       // their correct type
-      Object[] data = new Object[3];
+      String[] data = new String[3];
       int startIndex = 0;
       int endIndex = row.indexOf(",");
 
@@ -95,31 +97,15 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
           data[i] = row.substring(startIndex, endIndex);
           row = row.substring(endIndex + 1);
           endIndex = row.indexOf(",");
-        }
+        }       
       }
-
-      // converts the info from each Destination and adds to the Destination object
-      
-      // starting destination stored at index 0
-      String startDest = data[0].toString();
-
-      // end destination stored at index 1
-      String endDest = data[1].toString();
-
-      // cost stored at index 2
-      String costString = ((String) data[2]);
-      int c = Integer.parseInt(costString);
-      Integer cost = ((Integer) c);
-
-      Destination d = new Destination(startDest, endDest, cost);
-
-      // then add the new object to the destinationList, which gets returned after closing
-      // the file
-      destinationList.add(d);
+        edges[k][0] = data[0];
+        edges[k][1] = data[1];
+        edges[k][2] = data[2];
+        k += 1;
     }
-
+    
     csvReader.close();
     inputFileReader.close();
-    return destinationList;
   }
 }
