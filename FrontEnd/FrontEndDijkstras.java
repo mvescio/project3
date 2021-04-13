@@ -1,72 +1,53 @@
+// --== CS400 File Header Information ==--
+// Name: Jonathon Byrnes
+// Email: jdbyrnes@gmail.com
+// Team: Blue
+// Role: Front End
+// TA: Surabhi
+// Lecturer: Gary Dahl
+// Notes to Grader: null
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
+//This class instantiates a graph of vertices and edges, and allows a user to find the shortest path between them.
 public class FrontEndDijkstras {
 
 	/**
 	 * @param args
 	 * @throws FileNotFoundException throws FileNotFoundException while implementing
-	 *                               BackendInterface
+	 *                               CampusDataReader
 	 * @throws IOException           throws IONotFoundException while implementing
-	 *                               BackendInterface
+	 *                               CampusDataReader
 	 * @throws DataFormatException   throws DataNotFoundException while implementing
-	 *                               BackendInterface
+	 *                               CampusDataReader
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException, DataFormatException {
-
-		/* BackendInterface graph = new BackendInterface(); */
+		
+		//Creates the graph
 		CS400Graph<String> graph = new CS400Graph<String>();
-		/*
-		 * graph.insertVertex("Dejope Hall"); graph.insertVertex("Camp Randall");
-		 * graph.insertVertex("Union South"); graph.insertVertex("Memorial Union");
-		 * graph.insertVertex("Van Vleck Hall"); graph.insertVertex("Humanities");
-		 * graph.insertVertex("Witte Hall"); graph.insertVertex("Waters Hall");
-		 * 
-		 * 
-		 * 
-		 * graph.insertEdge("Dejope Hall", "Camp Randall", 8);
-		 * graph.insertEdge("Dejope Hall", "Union South", 7);
-		 * graph.insertEdge("Dejope Hall", "Waters Hall", 3);
-		 * 
-		 * graph.insertEdge("Camp Randall", "Union South", 2);
-		 * graph.insertEdge("Camp Randall", "Dejope Hall", 8);
-		 * graph.insertEdge("Camp Randall", "Witte Hall", 8);
-		 * 
-		 * graph.insertEdge("Union South", "Dejope Hall", 7);
-		 * graph.insertEdge("Union South", "Van Vleck Hall", 4);
-		 * graph.insertEdge("Union South", "Witte Hall", 7);
-		 * graph.insertEdge("Union South", "Camp Randall", 2);
-		 * 
-		 * graph.insertEdge("Waters Hall", "Dejope Hall", 8);
-		 * graph.insertEdge("Waters Hall", "Memorial Union", 8);
-		 * graph.insertEdge("Waters Hall", "Van Vleck Hall", 2);
-		 * 
-		 * graph.insertEdge("Van Vleck Hall", "Waters Hall", 2);
-		 * graph.insertEdge("Van Vleck Hall", "Memorial Union", 7);
-		 * graph.insertEdge("Van Vleck Hall", "Humanities", 6);
-		 * graph.insertEdge("Van Vleck Hall", "Union South", 4);
-		 * 
-		 * graph.insertEdge("Memorial Union", "Waters Hall", 8);
-		 * graph.insertEdge("Memorial Union", "Humanities", 2);
-		 * graph.insertEdge("Memorial Union", "Van Vleck Hall", 7);
-		 * 
-		 * graph.insertEdge("Humanities", "Van Vleck Hall", 6);
-		 * graph.insertEdge("Humanities", "Witte Hall", 4);
-		 * graph.insertEdge("Humanities", "Memorial Union", 2);
-		 * 
-		 * graph.insertEdge("Witte Hall", "Humanities", 4);
-		 * graph.insertEdge("Witte Hall", "Union South", 7);
-		 * graph.insertEdge("Witte Hall", "Camp Randall", 8);
-		 */
 
+		
 		CampusDataReader reader = new CampusDataReader();
-		reader.readDataSet();
+		try {
+			reader.readDataSet();
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException f) {
+			System.out.println(f);
+		} catch (DataFormatException g) {
+			System.out.println(g);
+		}
+
+		
+		//Creates vertices on the graph
 		for (int i = 0; i < reader.vertices.size(); i++) {
 			graph.insertVertex(reader.vertices.get(i));
 		}
+		
+		//Creates edges in the graph 
 		for (int i = 1; i < reader.edges.length; i++) {
 			Integer cost = Integer.valueOf((String) reader.edges[i][2]);
 			String startV = (String) reader.edges[i][0];
@@ -74,17 +55,12 @@ public class FrontEndDijkstras {
 			graph.insertEdge(startV, endV, cost);
 		}
 
+		//list of locations for the user to choose from
 		String[] options = new String[reader.vertices.size()];
 		for (int i = 0; i < reader.vertices.size(); i++) {
 			options[i] = reader.vertices.get(i);
 		}
-		// String[] options = new String[graph.vertices.size() + 1];
-		/*
-		 * options[0] = null; options[1] = "Camp Randall"; options[2] = "Dejope Hall";
-		 * options[3] = "Union South"; options[4] = "Waters Hall"; options[5] =
-		 * "Van Vleck Hall"; options[6] = "Memorial Union"; options[7] = "Humanities";
-		 * options[8] = "Witte Hall";
-		 */
+
 
 		// Welcome message to the user
 		System.out.println("Welcome to the UW Campus Map!");
@@ -95,6 +71,11 @@ public class FrontEndDijkstras {
 
 	}
 
+	/*
+	 * chooseBoth allows the user to choose both a start and end location to find the shortest path.
+	 * @param graph   the graph of vertices and edges
+	 * @param options  an array of the locations on the graph
+	 */
 	public static void chooseBoth(CS400Graph<String> graph, String[] options) {
 
 		System.out.println("Please choose one of the following as your starting point: ");
@@ -107,6 +88,7 @@ public class FrontEndDijkstras {
 		int choiceOfStart = sc.nextInt();
 		String start = "";
 
+		//Only allows for input between 1 and 9
 		while (choiceOfStart < 1 || choiceOfStart > 9) {
 			System.out.println("Please select a valid starting location.");
 			choiceOfStart = sc.nextInt();
@@ -127,6 +109,7 @@ public class FrontEndDijkstras {
 		int choiceOfEnd = sc.nextInt();
 		String end = "";
 
+		//Only allows for input between 1 and 9
 		while (choiceOfEnd < 1 || choiceOfEnd > 9) {
 			System.out.println("Please select a valid ending location.");
 			choiceOfEnd = sc.nextInt();
@@ -140,13 +123,12 @@ public class FrontEndDijkstras {
 
 		System.out.println("Shortest path between " + start + " and " + end + ": ");
 		System.out.println(graph.shortestPath(start, end));
-		// System.out.println(graph.printRoute());
 		System.out.println("Total time: " + graph.getPathCost(start, end) + " minutes.");
-		// graph.adjacentLocations(start, end);
 
 		System.out.println("Would you like to print buildings adjacent to your ending location? [Y]/[N]");
 
 		String p = sc.next();
+		//Makes sure the input is either Y or N, excluding capitalization
 		while (!p.equals("Y") && !p.equals("y") && !p.equals("N") && !p.equals("n")) {
 			System.out.println("Please enter Y for yes, or N for no.");
 			p = sc.next();
@@ -159,6 +141,8 @@ public class FrontEndDijkstras {
 		System.out.println();
 
 		System.out.println();
+		
+		//Gives the user options as for what to do next
 		System.out.println("Please select an option: ");
 		System.out.println("[1] Start Over.");
 		System.out.println("[2] Change starting point.");
@@ -167,6 +151,7 @@ public class FrontEndDijkstras {
 
 		int choice = sc.nextInt();
 
+		//Ensures the choice is between 1 and 4
 		while (choice < 1 || choice > 4) {
 			System.out.println("Please enter a valid option.");
 			choice = sc.nextInt();
@@ -199,6 +184,12 @@ public class FrontEndDijkstras {
 		sc.close();
 	}
 
+	/*
+	 * changeStart changes the starting point of the path only
+	 * @param graph  the graph of vertices and edges
+	 * @param end  the ending location from the previous shortest path
+	 * @param options   the list of locations
+	 */
 	public static void changeStart(CS400Graph<String> graph, String end, String[] options) {
 
 		Scanner sc = new Scanner(System.in);
@@ -210,26 +201,26 @@ public class FrontEndDijkstras {
 		int choiceOfStart = sc.nextInt();
 		String start = "";
 
+		//Ensures the user chooses between 1 and 9
 		while (choiceOfStart < 1 || choiceOfStart > 9) {
 			System.out.println("Please select a valid starting location.");
 			choiceOfStart = sc.nextInt();
 		}
 
-		start = options[choiceOfStart - 1];
+		start = options[choiceOfStart - 1]; //Choice of new starting location
 
 		System.out.println(start + " is your new starting location.");
 		System.out.println();
 
 		System.out.println("Shortest path between " + start + " and " + end + ": ");
 		System.out.println(graph.shortestPath(start, end));
-		// System.out.println(graph.printRoute());
 		System.out.println("Total time: " + graph.getPathCost(start, end) + " minutes.");
-		// System.out.println("Nearby buildings: " + graph.printAdjacentLocations(start,
-		// end));
 
 		System.out.println("Would you like to print buildings adjacent to your ending location? [Y]/[N]");
 
 		String p = sc.next();
+		
+		//Ensures the user inputs Y or N, regardless of capitalization
 		while (!p.equals("Y") && !p.equals("y") && !p.equals("N") && !p.equals("n")) {
 			System.out.println("Please enter Y for yes, or N for no.");
 			p = sc.next();
@@ -240,6 +231,7 @@ public class FrontEndDijkstras {
 		}
 
 		System.out.println();
+		//Prints options for the user
 		System.out.println("Please select an option: ");
 		System.out.println("[1] Start Over.");
 		System.out.println("[2] Change starting point.");
@@ -248,6 +240,7 @@ public class FrontEndDijkstras {
 
 		int choice = sc.nextInt();
 
+		//Ensures the user chooses between 1 and 4
 		while (choice < 1 || choice > 4) {
 			System.out.println("Please enter a valid option.");
 			choice = sc.nextInt();
@@ -280,6 +273,12 @@ public class FrontEndDijkstras {
 		sc.close();
 	}
 
+	/*
+	 * changeStart changes the ending point of the path only
+	 * @param graph  the graph of vertices and edges
+	 * @param start  the starting location from the previous shortest path
+	 * @param options   the list of locations
+	 */
 	public static void changeEnd(CS400Graph<String> graph, String start, String[] options) {
 
 		Scanner sc = new Scanner(System.in);
@@ -291,36 +290,37 @@ public class FrontEndDijkstras {
 		int choiceOfEnd = sc.nextInt();
 		String end = "";
 
+		//Ensures choice is between 1 and 9
 		while (choiceOfEnd < 1 || choiceOfEnd > 9) {
 			System.out.println("Please select a valid ending location.");
 			choiceOfEnd = sc.nextInt();
 		}
 
-		end = options[choiceOfEnd - 1];
+		end = options[choiceOfEnd - 1]; //Choice of new ending location
 
 		System.out.println(end + " is your new ending location.");
 		System.out.println();
 
 		System.out.println("Shortest path between " + start + " and " + end + ": ");
 		System.out.println(graph.shortestPath(start, end));
-		// System.out.println(graph.printRoute());
 		System.out.println("Total time: " + graph.getPathCost(start, end) + " minutes.");
-		// System.out.println("Nearby buildings: " + graph.printAdjacentLocations(start,
-		// end));
-		
+
 		System.out.println("Would you like to print buildings adjacent to your ending location? [Y]/[N]");
-	    
-	    String p = sc.next();
-	    while (!p.equals("Y") && !p.equals("y") && !p.equals("N")&& !p.equals("n")) {
-	    	System.out.println("Please enter Y for yes, or N for no.");
-	    	p = sc.next();
-	    }
-	    
-	    if (p.equals("y") || p.equals("Y")) {
-	    	graph.adjacentLocations(start, end);
-	    }
+
+		String p = sc.next();
+		
+		//Ensures the user chooses Y or N, regardless of capitalization
+		while (!p.equals("Y") && !p.equals("y") && !p.equals("N") && !p.equals("n")) {
+			System.out.println("Please enter Y for yes, or N for no.");
+			p = sc.next();
+		}
+
+		if (p.equals("y") || p.equals("Y")) {
+			graph.adjacentLocations(start, end);
+		}
 
 		System.out.println();
+		//Prints options for the user
 		System.out.println("Please select an option: ");
 		System.out.println("[1] Start Over.");
 		System.out.println("[2] Change starting point.");
@@ -329,6 +329,7 @@ public class FrontEndDijkstras {
 
 		int choice = sc.nextInt();
 
+		//Ensures choice is between 1 and 4
 		while (choice < 1 || choice > 4) {
 			System.out.println("Please enter a valid option.");
 			choice = sc.nextInt();
