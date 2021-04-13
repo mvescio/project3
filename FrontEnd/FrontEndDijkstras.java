@@ -104,20 +104,20 @@ public class FrontEndDijkstras {
 		  System.out.println("Please choose one of the following as your starting point: ");
 		    
 		    
-		    for (int i = 1; i < options.length; i++) {
-		    	System.out.println("[" + i + "]: " + options[i]);
+		    for (int i = 0; i < options.length; i++) {
+		    	System.out.println("[" + (i + 1) + "]: " + options[i]);
 		    }
 		    
 		    Scanner sc = new Scanner(System.in);
 		    int choiceOfStart = sc.nextInt();
 		    String start = "";
 		    
-		    while (choiceOfStart < 1 || choiceOfStart > 8) {
+		    while (choiceOfStart < 1 || choiceOfStart > 9) {
 		    	System.out.println("Please select a valid starting location.");
 		    	choiceOfStart = sc.nextInt();
 		    }
 		    
-		    start = options[choiceOfStart];
+		    start = options[choiceOfStart - 1];
 		    
 		    System.out.println();
 		    System.out.println(start + " is your starting location.");
@@ -125,19 +125,19 @@ public class FrontEndDijkstras {
 		    
 		    System.out.println("Please choose one of the following as your ending point: ");
 		    
-		    for (int i = 1; i < options.length; i++) {
-		    	System.out.println("[" + i + "]: " + options[i]);
+		    for (int i = 0; i < options.length; i++) {
+		    	System.out.println("[" + (i + 1) + "]: " + options[i]);
 		    }
 		    
 		    int choiceOfEnd = sc.nextInt();
 		    String end = "";
 		    
-		    while (choiceOfEnd < 1 || choiceOfEnd > 8) {
+		    while (choiceOfEnd < 1 || choiceOfEnd > 9) {
 		    	System.out.println("Please select a valid ending location.");
 		    	choiceOfEnd = sc.nextInt();
 		    }
 		    
-		    end = options[choiceOfEnd];
+		    end = options[choiceOfEnd - 1];
 		    
 		    System.out.println();
 		    System.out.println(end + " is your ending location.");
@@ -194,19 +194,19 @@ public class FrontEndDijkstras {
 		  
 		  Scanner sc = new Scanner(System.in);
 		  System.out.println("Please choose a new starting location.");
-		  for (int i = 1; i < options.length; i++) {
-		    	System.out.println("[" + i + "]: " + options[i]);
+		  for (int i = 0; i < options.length; i++) {
+		    	System.out.println("[" + (i + 1) + "]: " + options[i]);
 		    }
 		    
 		  int choiceOfStart = sc.nextInt();
 		    String start = "";
 		    
-		    while (choiceOfStart < 1 || choiceOfStart > 8) {
+		    while (choiceOfStart < 1 || choiceOfStart > 9) {
 		    	System.out.println("Please select a valid starting location.");
 		    	choiceOfStart = sc.nextInt();
 		    }
 		    
-		    start = options[choiceOfStart];
+		    start = options[choiceOfStart - 1];
 		  
 		  System.out.println(start + " is your new starting location.");
 		    System.out.println();
@@ -262,19 +262,19 @@ public class FrontEndDijkstras {
 		  
 		  Scanner sc = new Scanner(System.in);
 		  System.out.println("Please choose a new ending location.");
-		  for (int i = 1; i < options.length; i++) {
-		    	System.out.println("[" + i + "]: " + options[i]);
+		  for (int i = 0; i < options.length; i++) {
+		    	System.out.println("[" + (i + 1) + "]: " + options[i]);
 		    }
 		    
 		  int choiceOfEnd = sc.nextInt();
 		    String end = "";
 		    
-		    while (choiceOfEnd < 1 || choiceOfEnd > 8) {
+		    while (choiceOfEnd < 1 || choiceOfEnd > 9) {
 		    	System.out.println("Please select a valid ending location.");
 		    	choiceOfEnd = sc.nextInt();
 		    }
 		    
-		    end = options[choiceOfEnd];
+		    end = options[choiceOfEnd - 1];
 		  
 		  System.out.println(end + " is your new ending location.");
 		    System.out.println();
