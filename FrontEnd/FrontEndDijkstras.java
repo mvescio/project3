@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
@@ -18,50 +19,24 @@ public class FrontEndDijkstras {
 		
 		/*BackendInterface graph = new BackendInterface();*/
 	    CS400Graph<String> graph = new CS400Graph<String>();
-	    graph.insertVertex("Dejope Hall");
-	    graph.insertVertex("Camp Randall");
-	    graph.insertVertex("Union South");
-	    graph.insertVertex("Memorial Union");
-	    graph.insertVertex("Van Vleck Hall");
-	    graph.insertVertex("Humanities");
-	    graph.insertVertex("Witte Hall");
-	    graph.insertVertex("Waters Hall");
+	    CampusDataReader reader = new CampusDataReader();
+	    List<Destination> data = reader.readDataSet();
 	    
-	    
-	    
-	    graph.insertEdge("Dejope Hall", "Camp Randall", 8);
-	    graph.insertEdge("Dejope Hall", "Union South", 7);    
-	    graph.insertEdge("Dejope Hall", "Waters Hall", 3);
-	    
-	    graph.insertEdge("Camp Randall", "Union South", 2);
-	    graph.insertEdge("Camp Randall", "Dejope Hall", 8);
-	    graph.insertEdge("Camp Randall", "Witte Hall", 8);
-	    
-	    graph.insertEdge("Union South", "Dejope Hall", 7);
-	    graph.insertEdge("Union South", "Van Vleck Hall", 4);
-	    graph.insertEdge("Union South", "Witte Hall", 7);
-	    graph.insertEdge("Union South", "Camp Randall", 2);
-	    
-	    graph.insertEdge("Waters Hall", "Dejope Hall", 8);
-	    graph.insertEdge("Waters Hall", "Memorial Union", 8);
-	    graph.insertEdge("Waters Hall", "Van Vleck Hall", 2);
-	    
-	    graph.insertEdge("Van Vleck Hall", "Waters Hall", 2);
-	    graph.insertEdge("Van Vleck Hall", "Memorial Union", 7);
-	    graph.insertEdge("Van Vleck Hall", "Humanities", 6);
-	    graph.insertEdge("Van Vleck Hall", "Union South", 4);
-	    
-	    graph.insertEdge("Memorial Union", "Waters Hall", 8);
-	    graph.insertEdge("Memorial Union", "Humanities", 2);
-	    graph.insertEdge("Memorial Union", "Van Vleck Hall", 7);
-	    
-	    graph.insertEdge("Humanities", "Van Vleck Hall", 6);
-	    graph.insertEdge("Humanities", "Witte Hall", 4);
-	    graph.insertEdge("Humanities", "Memorial Union", 2);
-	    
-	    graph.insertEdge("Witte Hall", "Humanities", 4);
-	    graph.insertEdge("Witte Hall", "Union South", 7);
-	    graph.insertEdge("Witte Hall", "Camp Randall", 8);
+	    for (int i=10; i<data.size(); i++) {
+	      if (!graph.containsVertex(data.get(i).getName()) && !graph.containsVertex(data.get(i).getDest())) {
+	        graph.insertVertex(data.get(i).getName());
+	        graph.insertVertex(data.get(i).getDest());
+	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
+	      } else if (!graph.containsVertex(data.get(i).getName()) && graph.containsVertex(data.get(i).getDest())) {
+	        graph.insertVertex(data.get(i).getName());
+	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
+	      } else if (graph.containsVertex(data.get(i).getName()) && !graph.containsVertex(data.get(i).getDest())) {
+	        graph.insertVertex(data.get(i).getDest());
+            graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
+	      } else {
+	        graph.insertEdge(data.get(i).getName(), data.get(i).getDest(), data.get(i).getCost());
+	      }
+	    }
 	    
 	    String[] options = new String[graph.vertices.size() + 1];
 	    options[0] = null;
