@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class adjacentLocations<T> extends CS400Graph<T> {
+public class adjacentLocations<T> extends BackEndDijkstra<T> {
   
 
 
   public static void main(String[] args) {
-    CS400Graph<Integer> adj = new CS400Graph<>();
+    BackEndDijkstra<Integer> adj = new BackEndDijkstra<>();
     adj.insertVertex(1);
     adj.insertVertex(2);
     adj.insertVertex(3);
@@ -32,13 +32,13 @@ public class adjacentLocations<T> extends CS400Graph<T> {
     int input = sc.nextInt();
     sc.close();
     
-    for (CS400Graph.Vertex v : adj.vertices.values()) {
+    for (BackEndDijkstra.Vertex v : adj.vertices.values()) {
       //System.out.println(v.data);
       if ((int)v.data== input) {
         System.out.println("The adjacent edges to your origin are:");
-        for (CS400Graph.Edge e : (LinkedList<CS400Graph.Edge>)v.edgesLeaving) {
+        for (BackEndDijkstra.Edge e : (LinkedList<BackEndDijkstra.Edge>)v.edgesLeaving) {
         
-        System.out.println(((CS400Graph.Vertex)e.target).data);
+        System.out.println(((BackEndDijkstra.Vertex)e.target).data);
       }
       }
     }

@@ -1,11 +1,3 @@
-// --== CS400 File Header Information ==--
-// Name: Anubhav Kumaria
-// Email: kumaria@wisc.edu
-// Team: GG
-// TA: Surabhi
-// Lecturer: Gary Dahl
-// Notes to Grader: <NA>
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
