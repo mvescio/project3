@@ -1,4 +1,3 @@
-
 // --== CS400 File Header Information ==--
 // Name: Sydney Benck
 // Email: sbenck@wisc.edu
@@ -17,18 +16,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
-//import CS400Graph.Edge;
-//import CS400Graph.Vertex;
-
 public class CampusDataReader implements CampusMapDataReaderInterface {
-	
-	List<String> vertices = new ArrayList<String>();
-	Object[][] edges = new Object[31][3];
-	
+
+  List<String> vertices = new ArrayList<String>();
+  Object[][] edges = new Object[31][3];
+
 
   @Override
-  public void readDataSet()
-      throws FileNotFoundException, IOException, DataFormatException {
+  public void readDataSet() throws FileNotFoundException, IOException, DataFormatException {
     /**
      * Reads in a set of Destinations from a .csv file and creates a Destination object based off of
      * each line. Adds all of the Destinations to an ArrayList of Destination objects
@@ -78,14 +73,12 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
         end = row.indexOf(",");
       }
     }
-    
+
     // Add the vertexes to the destination list returned
     for (int i = 0; i < vertexes.length; i++) {
-      //Destination v = new Destination(vertexes[i].toString(), null, 0);
-      //destinationList.add(v);
-    	vertices.add(vertexes[i]);
+      vertices.add(vertexes[i]);
     }
-    
+
     // Now the reader reads in all of the edges, their costs, and the destinations on each end of
     // the edges
     // loop where it runs until there isn't a next line
@@ -106,15 +99,15 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
           row = row.substring(endIndex + 1);
           endIndex = row.indexOf(",");
         }
-        
-        
+
+
       }
-        edges[k-1][0] = data[0];
-        edges[k-1][1] = data[1];
-        edges[k-1][2] = data[2];
-        k += 1;
+      edges[k - 1][0] = data[0];
+      edges[k - 1][1] = data[1];
+      edges[k - 1][2] = data[2];
+      k += 1;
       // converts the info from each Destination and adds to the Destination object
-      
+
       // starting destination stored at index 0
       String startDest = data[0].toString();
 
@@ -135,6 +128,5 @@ public class CampusDataReader implements CampusMapDataReaderInterface {
 
     csvReader.close();
     inputFileReader.close();
-    //return destinationList;
   }
 }
