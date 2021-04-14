@@ -1,75 +1,111 @@
 // --== CS400 File Header Information ==--
-// Name: Anubhav Kumaria
-// Email: kumaria@wisc.edu
-// Team: GG blue
-// Role: Front End Developer
+// Name: Jonathon Byrnes
+// Email: jdbyrnes@gmail.com
+// Team: Blue
+// Role: Front End
 // TA: Surabhi
 // Lecturer: Gary Dahl
-// Notes to Grader: The implementation on the proposal was initially submitted by a member of the
-// red team. However, after a good deal of back and forth with them, we figured some test methods
-// were inadequate and incorrect as pointed out by the TA as well.
-// These needed to be tweaked for instance "testRotation" as they were either found to be
-// redundant or not well thought out originally.
-
-import static org.junit.Assert.*;
+// Notes to Grader: Used starter code from 
+//https://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input
+//and 
+//https://www.baeldung.com/java-testing-system-out-println
+//in order to figure out how to test user input and what is printed. 
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+//Tests different aspects of the Front End
 public class FrontEndTester {
 
-	
-	private final PrintStream standardOut = System.out;
 	private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-	@BeforeEach
-	public void tearDown() {
-	    System.setOut(standardOut);
-	}
 	
 	@BeforeEach
 	public void setUp() {
 	    System.setOut(new PrintStream(outputStreamCaptor));
 	}
 	
-	private void print(String output) {
-	    System.out.println(output);
-	}
-	
+	/*
+	 * Tests the successful choice of a starting location
+	 */
 	@Test
-	public void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() {
-	    
+	public void testSuccessfulFirstChoice() {
+		System.setOut(new PrintStream(outputStreamCaptor));
+		String input = "1";
+		InputStream sysInBackup = System.in; // backup System.in to restore it later
+		ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+
 		FrontEndDijkstras f = new FrontEndDijkstras();
 		String[] s = new String[1];
 		s[0] = "Welcome to the UW Campus Map!";
+		
 		try {
 			f.main(null);
 		} catch (Exception e) {
 			
 		}
 		
-	    Assert.assertEquals("Welcome to the UW Campus Map!", outputStreamCaptor.toString()
-	      .trim());
+		Assert.assertEquals(true, outputStreamCaptor.toString().trim().contains("Dejope is your starting location."));
+		System.setIn(sysInBackup);
+	    
 	}
 	
+	/*
+	 * Tests the successful choice of an ending location
+	 */
 	@Test
-	public void testExceptions() {
-		String c = "true";
+	public void testSuccessfulSecondChoice() {
+		System.setOut(new PrintStream(outputStreamCaptor));
+		String input = "1" + System.lineSeparator() + "2";
+		InputStream sysInBackup = System.in; // backup System.in to restore it later
+		ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+
+		FrontEndDijkstras f = new FrontEndDijkstras();
+		String[] s = new String[1];
+		s[0] = "Welcome to the UW Campus Map!";
+		
 		try {
-			FrontEndDijkstras f = new FrontEndDijkstras();
 			f.main(null);
 		} catch (Exception e) {
-			c = "false";
-		} 
+			
+		}
 		
-		Assert.assertEquals("true", c);
+		Assert.assertEquals(true, outputStreamCaptor.toString().trim().contains("Waters is your ending location."));
+		System.setIn(sysInBackup);
+	    
 	}
+	
+	/*
+	 * Tests the successful choice of yes when asked for adjacent locations
+	 */
+	@Test
+	public void testSuccessfulYesAdjacentChoice() {
+		System.setOut(new PrintStream(outputStreamCaptor));
+		String input = "1" + System.lineSeparator() + "2" + System.lineSeparator() + "y";
+		InputStream sysInBackup = System.in; // backup System.in to restore it later
+		ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+
+		FrontEndDijkstras f = new FrontEndDijkstras();
+		String[] s = new String[1];
+		s[0] = "Welcome to the UW Campus Map!";
+		
+		try {
+			f.main(null);
+		} catch (Exception e) {
+			
+		}
+		
+		Assert.assertEquals(true, outputStreamCaptor.toString().trim().contains("Van Vleck Hall,"));
+		System.setIn(sysInBackup);
+	    
+	}
+	
 
 }
