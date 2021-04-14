@@ -43,7 +43,9 @@ Team Member Contributions:
  expectations for their contributions to this project.  Also identify any
  ways that team members failed to meet the expectations of the group, for
  example: missed deadlines, lack of communication, lack of effort, etc.>
- All members of my team have been wonderful to work with. Everyone has been working hard and I've never had any issues communicating with them. In general, I would say I am impressed by my team's work in regards to the projects as well as the teamwork aspect of the class.
+ All members of my team have been wonderful to work with. Everyone has been working hard and I've never had any issues communicating with them.
+ In general, I would say I am impressed by my team's work in regards to the projects as well as the teamwork aspect of the class.
+ I would have to say though, Jonathan stood out in terms of helping us all debug various files.
 
 Signature:
 ----------
